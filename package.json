@@ -1,6 +1,6 @@
 {
   "name": "language-toc-wow",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Add syntax highlighting for World of Warcraft TOC files in Atom.",
   "keywords": [
     "language",
