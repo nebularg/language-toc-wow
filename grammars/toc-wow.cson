@@ -20,7 +20,7 @@
       }
       {
         'match': '\\S[^:]+'
-        'name': 'invalid.name.tag.toc'
+        'name': 'invalid.tag.toc'
       }
     ]
     'end': '(:|\\Z)'
@@ -40,6 +40,10 @@
   {
     'match': '(?<!^## )#.*$'
     'name': 'comment.toc'
+  }
+  {
+    'match': '^(?!#)[^ ].+\\.xml'
+    'name': 'meta.require.xml.toc'
   }
 ]
 'scopeName': 'source.toc'
