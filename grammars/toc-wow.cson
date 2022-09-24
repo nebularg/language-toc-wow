@@ -1,49 +1,75 @@
-'comment': 'World of Warcraft TOC'
-'fileTypes': [ 'toc' ]
 'name': 'TOC (WoW)'
+'fileTypes': [ 'toc' ]
+'comment': 'World of Warcraft TOC'
+'scopeName': 'source.toc'
 'patterns': [
   {
-    'name': 'keyword.tag.toc'
-    'begin': '^## '
-    'patterns': [
-      {
-        'match': '([Xx]-[^:]+)'
-        'name': 'entity.name.tag.custom.toc'
+    'match': '^(##\\s*(\\S+))\\s*(:)\\s*(.*)$'
+    'captures': {
+      '1': {
+        'name': 'keyword.tag.toc'
       }
-      {
-        'match': '(Title-|Notes-|Description-)(enUS|enGB|frFR|deDE|esES|esMX|itIT|ptBR|ruRU|koKR|zhTW|zhCN)'
-        'name': 'entity.name.tag.localized.toc'
+      '2': {
+        'name': 'keyword.tag.toc'
+        'patterns': [
+          {
+            'match': '[Xx]-[^:]+'
+            'name': 'entity.name.tag.custom.toc'
+          }
+          {
+            'match': '(?i)(Title-|Notes-|)(?-i)(enUS|enCN|enGB|enTW|frFR|deDE|esES|esMX|itIT|ptBR|ptPT|ruRU|koKR|zhTW|zhCN)'
+            'name': 'entity.name.tag.localized.toc'
+          }
+          {
+            'match': '(?i)(Interface|Title|Notes|RequiredDeps|\\bDep[^:]*|OptionalDeps|LoadOnDemand|LoadWith|LoadManagers|SavedVariablesPerCharacter|SavedVariables|DefaultState|Author|Version)'
+            'name': 'entity.name.tag.toc'
+          }
+          {
+            'match': '(?i)(AllowLoad|OnlyBetaAndPTR|SavedVariablesMachine|Secure)'
+            'name': 'entity.name.tag.restricted.toc'
+          }
+          {
+            'match': '\\S[^:]+'
+            'name': 'invalid.tag.toc'
+          }
+        ]
       }
-      {
-        'match': '(Interface|Title|Notes|Description|RequiredDeps|Dependencies|\\bDep[^:]+|OptionalDeps|LoadOnDemand|LoadWith|LoadManagers|SavedVariablesPerCharacter|SavedVariables|DefaultState|Secure|Author|Version)'
-        'name': 'entity.name.tag.toc'
+      '3': {
+        'name': 'punctuation.separator.key-value'
       }
-      {
-        'match': '\\S[^:]+'
-        'name': 'invalid.tag.toc'
+      '4': {
+        'name': 'string.value.toc'
+        'patterns': [
+          {
+            'match': '(\\|c)([a-fA-F0-9]{8})'
+            'captures':
+              '1':
+                'name': 'constant.character.escape.toc'
+              '2':
+                'name': 'string.escape.coloring.toc'
+          }
+          {
+            'match': '(\\|r)'
+            'name': 'constant.character.escape.toc'
+          }
+          {
+            'match': '@.*?@'
+            'name': 'constant.other.packager.toc'
+          }
+        ]
       }
-    ]
-    'end': '(:|\\Z)'
+    }
   }
   {
-    'captures':
-      '1':
-        'name': 'constant.character.escape.toc'
-      '2':
-        'name': 'string.escape.coloring.toc'
-    'match': '(\\|c)([a-fA-F0-9]{8})'
-  }
-  {
-    'match': '(\\|r)'
-    'name': 'constant.character.escape.toc'
-  }
-  {
-    'match': '(?<!^## )#.*$'
+    'match': '#.*$'
     'name': 'comment.toc'
   }
   {
     'match': '^(?!#)[^ ].+\\.xml'
     'name': 'meta.require.xml.toc'
   }
+  {
+    'match': '@.*?@'
+    'name': 'constant.other.packager.toc'
+  }
 ]
-'scopeName': 'source.toc'
