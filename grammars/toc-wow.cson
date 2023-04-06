@@ -21,7 +21,7 @@
             'name': 'entity.name.tag.localized.toc'
           }
           {
-            'match': '(?i)(Interface|Title|Notes|RequiredDeps|\\bDep[^:]*|OptionalDeps|LoadOnDemand|LoadWith|LoadManagers|SavedVariablesPerCharacter|SavedVariables|DefaultState|Author|Version)'
+            'match': '(?i)(Interface|Title|Notes|RequiredDeps|\\bDep[^:]*|OptionalDeps|LoadOnDemand|LoadWith|LoadManagers|SavedVariablesPerCharacter|SavedVariables|DefaultState|Author|Version|AddonCompartmentFunc|AddonCompartmentFuncOnEnter|AddonCompartmentFuncOnLeave|IconAtlas|IconTexture)'
             'name': 'entity.name.tag.toc'
           }
           {
