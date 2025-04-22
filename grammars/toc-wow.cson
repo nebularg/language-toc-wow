@@ -21,11 +21,11 @@
             'name': 'entity.name.tag.localized.toc'
           }
           {
-            'match': '(?i)(Interface|Title|Notes|RequiredDeps|\\bDep[^:]*|OptionalDeps|LoadOnDemand|LoadWith|LoadManagers|SavedVariablesPerCharacter|SavedVariables|DefaultState|Author|Version|AddonCompartmentFunc(OnEnter|OnLeave)?|IconAtlas|IconTexture|Category|Group)'
+            'match': '(?i)(Interface|Title|Notes|RequiredDeps|\\bDep[^:]*|OptionalDeps|LoadOnDemand|LoadWith|LoadManagers|AllowLoadGameType|SavedVariablesPerCharacter|SavedVariables|LoadSavedVariablesFirst|DefaultState|Author|Version|AddonCompartmentFunc(OnEnter|OnLeave)?|IconAtlas|IconTexture|Category|Group)'
             'name': 'entity.name.tag.toc'
           }
           {
-            'match': '(?i)(AllowLoad(GameType)?|OnlyBetaAndPTR|SavedVariablesMachine|Secure|LoadFirst|UseSecureEnvironment)'
+            'match': '(?i)(AllowLoad|OnlyBetaAndPTR|SavedVariablesMachine|Secure|LoadFirst|UseSecureEnvironment)'
             'name': 'entity.name.tag.restricted.toc'
           }
           {
@@ -65,11 +65,72 @@
     'name': 'comment.toc'
   }
   {
-    'match': '^(?!#)[^ ].+\\.xml'
-    'name': 'meta.require.xml.toc'
+    'name': 'entity.name.file.toc'
+    'begin': '^(?!#)\\s*(?=[\\w\\[])'
+    'end': '\\n'
+    'patterns': [
+      {
+        'include': '#inline-conditional-directive'
+      }
+      {
+        'include': '#inline-variable-directive'
+      }
+    ]
   }
   {
     'match': '@.*?@'
     'name': 'constant.other.packager.toc'
   }
 ]
+'repository': {
+  'inline-conditional-directive': {
+    'comment': 'Inline file-specific conditional loading directive using [Directive ...]'
+    'match': '\\[(\\w+)(\\s+)([^\\]]*)\\]'
+    'name': 'keyword.tag.toc'
+    'captures': {
+      '1': {
+        'name': 'keyword.tag.toc'
+        patterns: [
+          {
+            'match': '(?i)(AllowLoadGameType)'
+            'name': 'entity.name.tag.toc'
+          }
+          {
+            'match': '(?i)(AllowLoad)'
+            'name': 'entity.name.tag.restricted.toc'
+          }
+          {
+            'match': '.+'
+            'name': 'invalid.tag.toc'
+          }
+        ]
+      }
+      '2': {
+        'name': 'punctuation.separator.key-value'
+      }
+      '3': {
+        'name': 'string.escape.coloring.toc'
+      }
+    }
+  }
+  'inline-variable-directive': {
+    'comment': 'Inline variable expansion using [...]'
+    'match': '\\[(\\w+)\\]'
+    'name': 'keyword.tag.toc'
+    'captures': {
+      '1': {
+        'name': 'keyword.tag.toc'
+        'patterns': [
+          {
+            'match': '(?i)(Family|Game)'
+            'name': 'entity.name.tag.variable.toc'
+          }
+          {
+            'match': '\\S[^:]+'
+            'name': 'invalid.tag.toc'
+          }
+        ]
+      }
+    }
+  }
+}
